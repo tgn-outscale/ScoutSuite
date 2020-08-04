@@ -7,7 +7,7 @@ from ScoutSuite.core.console import print_exception
 class ApiFacade(OSCBaseFacade):
 
     def __init__(self, session: Gateway):
-        super(ApiFacade, self).init(session)
+        super(ApiFacade, self).__init__(session)
 
     async def get_instances(self, region: str):
         try:
