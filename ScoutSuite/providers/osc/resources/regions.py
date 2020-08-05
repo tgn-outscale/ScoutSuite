@@ -24,3 +24,12 @@ class Regions(OSCCompositeResources, metaclass=abc.ABCMeta):
             scopes={region: {'region': region} for region in self['regions']}
         )
         self._set_counts()
+
+    def _set_counts(self):
+        self['regions_count'] = len(self['regions'])
+
+        for _, key in self._children:
+            if key == 'vpcs':
+                continue
+
+            self[key + '_count'] = sum([region[key + '_count'] for region in self['regions'].values()])
