@@ -9,7 +9,8 @@ class Snapshots(OSCResources):
         self.region = region
 
     async def fetch_all(self):
-        raw_snapshots = await self.facade.api.list_snapshots()
+        # raw_snapshots = await self.facade.api.list_snapshots()
+        raw_snapshots = []
         for raw_snapshot in raw_snapshots:
             name, resource = self._parse_snapshot(raw_snapshot)
             self[name] = resource
