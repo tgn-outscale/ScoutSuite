@@ -17,5 +17,5 @@ class Api(Regions):
         super(Api, self).__init__('api', facade)
 
     async def fetch_all(self, regions=None, excluded_regions=None, partition_name='aws', **kwargs):
-        await super(Api, self).fetch_all(regions, excluded_regions, partition_name)
+        await super(Api, self).fetch_all(regions, excluded_regions, partition_name=partition_name)
 

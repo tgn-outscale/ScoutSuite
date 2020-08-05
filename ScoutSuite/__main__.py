@@ -53,6 +53,9 @@ def run_from_cli():
                    organization_id=args.get('organization_id'), all_projects=args.get('all_projects'),
                    # Aliyun
                    access_key_id=args.get('access_key_id'), access_key_secret=args.get('access_key_secret'),
+                   # Outscale
+                   osc_access_key=args.get('osc_access_key'),
+                   osc_secret_access_key=args.get('osc_secret_access_key'),
                    # General
                    report_name=args.get('report_name'), report_dir=args.get('report_dir'),
                    timestamp=args.get('timestamp'),
@@ -99,6 +102,8 @@ def run(provider,
         project_id=None, folder_id=None, organization_id=None, all_projects=False,
         # Aliyun
         access_key_id=None, access_key_secret=None,
+        # Outscale
+        osc_access_key=None, osc_secret_access_key=None,
         # General
         report_name=None, report_dir=None,
         timestamp=False,
@@ -151,6 +156,9 @@ async def _run(provider,
                project_id, folder_id, organization_id, all_projects,
                # Aliyun
                access_key_id, access_key_secret,
+               # Outscale
+               osc_access_key,
+               osc_secret_access_key,
                # General
                report_name, report_dir,
                timestamp,
@@ -198,7 +206,9 @@ async def _run(provider,
                                                  username=username,
                                                  password=password,
                                                  access_key_id=access_key_id,
-                                                 access_key_secret=access_key_secret)
+                                                 access_key_secret=access_key_secret,
+                                                 osc_access_key=osc_access_key,
+                                                 osc_secret_access_key=osc_secret_access_key)
 
         if not credentials:
             return 101
