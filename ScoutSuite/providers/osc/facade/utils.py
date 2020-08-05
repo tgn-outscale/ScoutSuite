@@ -1,9 +1,6 @@
 import json
 import requests
 
-from ScoutSuite.providers.osc.authentication_strategy import \
-    OSCRequestSignerAlgorithmV4
-
 
 class OSCFacadeUtils:
     @staticmethod

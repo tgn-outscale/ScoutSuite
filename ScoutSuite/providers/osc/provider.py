@@ -29,7 +29,7 @@ class OutscaleProvider(BaseProvider):
         self.result_format = result_format
 
         self.credentials = kwargs['credentials']
-
+        self.account_id = ""
         super(OutscaleProvider, self).__init__(report_dir, timestamp,
                                           services, skipped_services,
                                           result_format)
