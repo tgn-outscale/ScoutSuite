@@ -13,19 +13,23 @@ class Regions(OSCCompositeResources, metaclass=abc.ABCMeta):
     async def fetch_all(self, regions=None, excluded_regions=None, **kwargs):
         import logging
         logging.getLogger("scout").critical("OSC ::: Regions::fetch_all()")
-        self['regions'] = {}
-        for region in await self.facade.build_region_list(self.service, regions, excluded_regions):
-            self['regions'][region['RegionName']] = {
-                'id': region,
-                'region': region,
-                'name': region
-            }
+        try:
+            self['regions'] = {}
+            for region in await self.facade.build_region_list(self.service, regions, excluded_regions):
+                self['regions'][region['RegionName']] = {
+                    'id': region['RegionName'],
+                    'region': region,
+                    'name': region['RegionName'],
+                    'endpoint': region['Endpoint']
+                }
 
-        await self._fetch_children_of_all_resources(
-            resources=self['regions'],
-            scopes={region: {'region': region} for region in self['regions']}
-        )
-        self._set_counts()
+            await self._fetch_children_of_all_resources(
+                resources=self['regions'],
+                scopes={region: {'region': region} for region in self['regions']}
+            )
+            self._set_counts()
+        except Exception as e:
+            logging.getLogger("scout").critical(f"OSC ::: Exception ::: {e}")
 
     def _set_counts(self):
         self['regions_count'] = len(self['regions'])

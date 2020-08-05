@@ -2,6 +2,7 @@ from ScoutSuite.providers.osc.resources.api.snapshots import Snapshots
 #from ScoutSuite.providers.osc.resources.api.volumes import Volumes
 #from ScoutSuite.providers.osc.resources.api.vpcs import Vpcs
 #from ScoutSuite.providers.osc.resources.api.instances import Instances
+from ScoutSuite.providers.osc.resources.fcu.securitygroups import SecurityGroups
 from ScoutSuite.providers.osc.resources.regions import Regions
 
 
@@ -9,8 +10,8 @@ class Api(Regions):
     _children = [
         #(Vpcs, 'vpcs'),
         #(Instances, 'instances'),
-        (Snapshots, 'snapshots'),
-       # (Volumes, 'volumes')
+        #(Snapshots, 'snapshots'),
+        #(Volumes, 'volumes')
     ]
 
     def __init__(self, facade):

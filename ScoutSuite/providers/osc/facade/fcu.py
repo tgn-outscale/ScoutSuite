@@ -11,14 +11,15 @@ from ScoutSuite.providers.utils import run_concurrently
 
 
 class FCUFacade(OSCBaseFacade):
-    def __init__(self, session: Gateway, owner_id: str):
-        self.owner_id = owner_id
-
+    def __init__(self, session: Gateway):
+    # def __init__(self, session: Gateway, owner_id: str):
+        # self.owner_id = owner_id
+        self.session = session
         super(FCUFacade, self).__init__(session)
 
-    async def get_security_groups(self, region: str, vpc: str):
+    async def get_security_groups(self, region: str, vpc: str = None):
         import logging
-        logging.getLogger('scout').critical("Test get_security_groups")
+        logging.getLogger('scout').critical("OSC ::: FCUFacade::get_security_groups()")
         try:
             # return await OSCFacadeUtils.get_all_pages(
             #     'fcu', region, self.session, 'describe_security_groups', 'SecurityGroups', Filters=filters
