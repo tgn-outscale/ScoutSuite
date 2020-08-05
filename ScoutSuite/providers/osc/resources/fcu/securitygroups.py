@@ -11,7 +11,7 @@ class SecurityGroups(OSCResources):
         self.vpc = vpc
 
     async def fetch_all(self):
-        raw_security_groups = await self.facade.fcu.get_security_groups(self.region, self.vpc)
+        raw_security_groups = await self.facade.fcu.get_security_groups()
         for raw_security_group in raw_security_groups:
             name, resource = self._parse_security_group(raw_security_group)
             self[name] = resource
