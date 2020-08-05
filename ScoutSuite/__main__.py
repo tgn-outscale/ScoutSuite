@@ -102,6 +102,8 @@ def run(provider,
         project_id=None, folder_id=None, organization_id=None, all_projects=False,
         # Aliyun
         access_key_id=None, access_key_secret=None,
+        # Outscale
+        osc_access_key=None, osc_secret_access_key=None,
         # General
         report_name=None, report_dir=None,
         timestamp=False,
