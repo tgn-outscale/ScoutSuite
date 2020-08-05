@@ -1,7 +1,7 @@
 from ScoutSuite.providers.base.services import BaseServicesConfig
 from ScoutSuite.providers.osc.resources.api.base import Api
 from ScoutSuite.providers.osc.facade.base import OSCFacade
-
+from ScoutSuite.providers.osc.resources.fcu.base import FCU
 
 class OSCServicesConfig(BaseServicesConfig):
     """
@@ -17,6 +17,7 @@ class OSCServicesConfig(BaseServicesConfig):
         facade = OSCFacade(credentials)
 
         self.api = Api(facade)
+        self.fcu = FCU(facade)
 
     def _is_provider(self, provider_name):
         return provider_name == 'osc'
