@@ -11,14 +11,16 @@ class Regions(OSCCompositeResources, metaclass=abc.ABCMeta):
         self.service = service
 
     async def fetch_all(self, regions=None, excluded_regions=None, **kwargs):
-        self["region"] = {}
-        for region in await self.facade.build_region_list(self.service,
-                                                          regions, excluded_regions):
-            self["region"][region] = {
+        import logging
+        logging.getLogger("scout").critical("OSC ::: Regions::fetch_all()")
+        self['regions'] = {}
+        for region in await self.facade.build_region_list(self.service, regions, excluded_regions):
+            self['regions'][region['RegionName']] = {
                 'id': region,
                 'region': region,
                 'name': region
             }
+
         await self._fetch_children_of_all_resources(
             resources=self['regions'],
             scopes={region: {'region': region} for region in self['regions']}

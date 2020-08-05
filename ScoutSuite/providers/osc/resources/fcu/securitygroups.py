@@ -3,9 +3,11 @@ from ScoutSuite.providers.osc.facade.base import OSCFacade
 from ScoutSuite.utils import manage_dictionary
 from ScoutSuite.core.fs import load_data
 
+import logging
 
 class SecurityGroups(OSCResources):
     def __init__(self, facade: OSCFacade, region: str, vpc: str):
+        logging.getLogger("scout").critical("OSC Security Groups\n\n\n\n\n")
         super(SecurityGroups, self).__init__(facade)
         self.region = region
         self.vpc = vpc
