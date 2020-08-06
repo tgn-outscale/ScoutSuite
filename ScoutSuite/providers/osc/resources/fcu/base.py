@@ -32,8 +32,8 @@ class FCU(Regions):
             logging.getLogger("scout").critical(f"OSC ::: region :: {region}")
             logging.getLogger("scout").critical(f"OSC ::: {self['regions'][region]}")
             # logging.getLogger("scout").critical(self['regions'][region]['security_groups'].values())
-            # self['regions'][region]['security_groups_count'] =\
-            #     sum([len(sg) for sg in self['regions'][region]['security_groups'].values()])
+            self['regions'][region]['security_groups_count'] =\
+                sum([len(sg) for sg in self['regions'][region]['security_groups'].values()])
             # self['regions'][region]['instances_count'] =\
             #     sum([len(vpc['instances']) for vpc in self['regions'][region]['vpcs'].values()])
             # self['regions'][region]['security_groups_count'] =\
@@ -42,5 +42,5 @@ class FCU(Regions):
             #     sum([len(vpc['network_interfaces']) for vpc in self['regions'][region]['vpcs'].values()])
 
         # self['instances_count'] = sum([region['instances_count'] for region in self['regions'].values()])
-        # self['security_groups_count'] = sum([region['security_groups_count'] for region in self['regions'].values()])
+        self['security_groups_count'] = sum([region['security_groups_count'] for region in self['regions'].values()])
         # self['network_interfaces_count'] = sum([region['network_interfaces_count'] for region in self['regions'].values()])

@@ -24,7 +24,8 @@ class FCUFacade(OSCBaseFacade):
             # return await OSCFacadeUtils.get_all_pages(
             #     'fcu', region, self.session, 'describe_security_groups', 'SecurityGroups', Filters=filters
             # )
-            return await OSCFacadeUtils.get_all_security_groups(self.session)
+            security_groups = await OSCFacadeUtils.get_all_security_groups(self.session)
+            return security_groups
         except Exception as e:
             print_exception('Failed to describe FCU security groups: {}'.format(e))
             return []
