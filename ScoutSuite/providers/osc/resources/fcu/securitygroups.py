@@ -13,15 +13,15 @@ class SecurityGroups(OSCResources):
         self.vpc = vpc
 
     async def fetch_all(self):
-        logging.getLogger("scout").critical("OSC ::: SecurityGroups.fetch_all()")
         try:
+            logging.getLogger("scout").critical("OSC ::: SecurityGroups.fetch_all()")
             raw_security_groups = await self.facade.fcu.get_security_groups(self.region)
+            logging.getLogger("scout").critical(f"OSC ::: security groups {raw_security_groups}")
+            for raw_security_group in raw_security_groups:
+                name, resource = self._parse_security_group(raw_security_group)
+                self[name] = resource
         except Exception as e:
-            logging.getLogger("scout").critical(f"OSC ::: Exception {e}")
-        logging.getLogger("scout").critical(f"OSC ::: security groups {raw_security_groups}")
-        for raw_security_group in raw_security_groups:
-            name, resource = self._parse_security_group(raw_security_group)
-            self[name] = resource
+            logging.getLogger("scout").critical(f"OSC ::: Exception {e}\n\n\n")
 
     def _parse_security_group(self, raw_security_group):
         security_group = {}

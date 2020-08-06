@@ -1,5 +1,5 @@
 from ScoutSuite.providers.osc.facade.basefacade import OSCBaseFacade
-from ScoutSuite.providers.osc.facade.api import ApiFacade
+# from ScoutSuite.providers.osc.facade.api import ApiFacade
 from ScoutSuite.providers.osc.facade.fcu import FCUFacade
 import requests
 
@@ -34,5 +34,5 @@ class OSCFacade(OSCBaseFacade):
         return regions
 
     def _instantiate_facades(self):
-        self.api = ApiFacade(self.session)
+        # self.api = ApiFacade(self.session)
         self.fcu = FCUFacade(self.session)
