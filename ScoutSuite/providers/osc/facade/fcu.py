@@ -10,18 +10,21 @@ from ScoutSuite.providers.utils import get_and_set_concurrently
 from ScoutSuite.providers.utils import run_concurrently
 
 
-class FcuFacade(OSCBaseFacade):
-    regional_flow_logs_cache_locks = {}
-    flow_logs_cache = {}
+class FCUFacade(OSCBaseFacade):
+    def __init__(self, session: Gateway):
+    # def __init__(self, session: Gateway, owner_id: str):
+        # self.owner_id = owner_id
+        self.session = session
+        super(FCUFacade, self).__init__(session)
 
-    def __init__(self, session: Gateway, owner_id: str):
-        self.owner_id = owner_id
-
-        super(FcuFacade, self).__init__(session)
-
-    async def get_security_groups(self):
+    async def get_security_groups(self, region: str, vpc: str = None):
+        import logging
+        logging.getLogger('scout').critical("OSC ::: FCUFacade::get_security_groups()")
         try:
+            # return await OSCFacadeUtils.get_all_pages(
+            #     'fcu', region, self.session, 'describe_security_groups', 'SecurityGroups', Filters=filters
+            # )
             return await OSCFacadeUtils.get_all_security_groups(self.session)
         except Exception as e:
-            print_exception('Failed to describe Fcu security groups: {}'.format(e))
+            print_exception('Failed to describe FCU security groups: {}'.format(e))
             return []
