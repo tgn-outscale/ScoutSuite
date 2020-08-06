@@ -22,14 +22,14 @@ class Regions(OSCCompositeResources, metaclass=abc.ABCMeta):
                     'name': region['RegionName'],
                     'endpoint': region['Endpoint']
                 }
-
             await self._fetch_children_of_all_resources(
                 resources=self['regions'],
                 scopes={region: {'region': region} for region in self['regions']}
             )
             self._set_counts()
         except Exception as e:
-            logging.getLogger("scout").critical(f"OSC ::: Exception ::: {e}")
+            logging.getLogger("scout").critical(f"OSC ::: Regions _fetch_all() Exception ::: {e}")
+
 
     def _set_counts(self):
         self['regions_count'] = len(self['regions'])
