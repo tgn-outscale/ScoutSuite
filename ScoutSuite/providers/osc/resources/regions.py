@@ -13,7 +13,7 @@ class Regions(OSCCompositeResources, metaclass=abc.ABCMeta):
     async def fetch_all(self, regions=None, excluded_regions=None, **kwargs):
         try:
             self['regions'] = {}
-            for region in await self.facade.build_region_list(self.service, regions, excluded_regions):
+            for region in await self.facade.build_region_list(regions, excluded_regions):
                 self['regions'][region['RegionName']] = {
                     'id': region['RegionName'],
                     'region': region,

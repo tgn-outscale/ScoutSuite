@@ -1,17 +1,11 @@
-# from ScoutSuite.providers.osc.resources.fcu.ami import OutscaleMachineImages
-# from ScoutSuite.providers.osc.resources.fcu.snapshots import Snapshots
-# from ScoutSuite.providers.osc.resources.fcu.volumes import Volumes
-# from ScoutSuite.providers.osc.resources.fcu.vpcs import FcuVpcs
 from ScoutSuite.providers.osc.resources.fcu.securitygroups import SecurityGroups
-from ScoutSuite.providers.osc.resources.fcu.volumes import Volumes
 from ScoutSuite.providers.osc.resources.regions import Regions
+from ScoutSuite.providers.osc.resources.fcu.volumes import Volumes
+
 
 class FCU(Regions):
     _children = [
         (SecurityGroups, 'security_groups')
-        # (FcuVpcs, 'vpcs'),
-        # (OutscaleMachineImages, 'omis'),
-        # (Snapshots, 'snapshots'),
         # (Volumes, 'volumes')
     ]
 

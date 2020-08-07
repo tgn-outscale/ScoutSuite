@@ -1,7 +1,6 @@
 from ScoutSuite.providers.osc.resources.base import OSCResources
 from ScoutSuite.providers.osc.facade.base import OSCFacade
 from ScoutSuite.utils import manage_dictionary
-from ScoutSuite.core.fs import load_data
 
 import logging
 

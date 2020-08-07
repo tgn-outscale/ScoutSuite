@@ -13,7 +13,7 @@ class Volumes(OSCResources):
 
     async def fetch_all(self, regions=None, excluded_regions=None, partition_name='osc', **kwargs):
         try:
-            raw_volumes = await self.facade.fcu.get_volumes(self.region)
+            raw_volumes = await self.facade.fcu.get_volumes()
             for raw_volume in raw_volumes:
                 name, resource = self._parse_volumes(raw_volume)
                 self[name] = resource
