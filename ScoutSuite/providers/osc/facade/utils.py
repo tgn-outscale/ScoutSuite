@@ -11,6 +11,15 @@ class OSCFacadeUtils:
                 security_groups.append(security_group)
         return security_groups
 
+    @staticmethod
+    async def get_all_volumes(session: Gateway):
+        response = session.ReadVolumes()
+        volumes = []
+        if 'Volumes' in response:
+            for volume in response['Volumes']:
+                volumes.append(volume)
+        return volumes
+
 
     @staticmethod
     def _get_outscale_endpoint(region, version, action):

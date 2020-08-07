@@ -2,7 +2,7 @@ import abc
 
 from ScoutSuite.providers.osc.resources.base import OSCCompositeResources
 from ScoutSuite.providers.osc.facade.base import OSCFacade
-
+import logging
 
 class Regions(OSCCompositeResources, metaclass=abc.ABCMeta):
 
@@ -11,8 +11,6 @@ class Regions(OSCCompositeResources, metaclass=abc.ABCMeta):
         self.service = service
 
     async def fetch_all(self, regions=None, excluded_regions=None, **kwargs):
-        import logging
-        logging.getLogger("scout").critical("OSC ::: Regions::fetch_all()")
         try:
             self['regions'] = {}
             for region in await self.facade.build_region_list(self.service, regions, excluded_regions):

@@ -7,16 +7,13 @@ import logging
 
 class SecurityGroups(OSCResources):
     def __init__(self, facade: OSCFacade, region: str, vpc: str = None):
-        logging.getLogger("scout").critical("OSC ::: Security Groups\n\n\n\n\n")
         super(SecurityGroups, self).__init__(facade)
         self.region = region
         self.vpc = vpc
 
     async def fetch_all(self):
         try:
-            logging.getLogger("scout").critical("OSC ::: SecurityGroups.fetch_all()")
             raw_security_groups = await self.facade.fcu.get_security_groups(self.region)
-            logging.getLogger("scout").critical(f"OSC ::: security groups {raw_security_groups}")
             for raw_security_group in raw_security_groups:
                 name, resource = self._parse_security_group(raw_security_group)
                 self[name] = resource
@@ -24,10 +21,8 @@ class SecurityGroups(OSCResources):
             logging.getLogger("scout").critical(f"OSC ::: SecurityGroups _fecth_all() Exception {e}\n\n\n")
 
     def _parse_security_group(self, raw_security_group):
-        import logging
         security_group = {}
         security_group['name'] = raw_security_group['SecurityGroupName']
-        logging.getLogger("scout").critical("OSC ::: 000")
         security_group['id'] = raw_security_group['SecurityGroupId']
         security_group['description'] = raw_security_group['Description']
         security_group['owner_id'] = raw_security_group['AccountId']

@@ -18,7 +18,6 @@ from ScoutSuite.output.html import ScoutReport
 from ScoutSuite.output.utils import get_filename
 from ScoutSuite.providers import get_provider
 from ScoutSuite.providers.base.authentication_strategy_factory import get_authentication_strategy
-import logging
 
 def run_from_cli():
     parser = ScoutSuiteArgumentParser()
@@ -26,7 +25,6 @@ def run_from_cli():
 
     # Get the dictionary to get None instead of a crash
     args = args.__dict__
-    logging.warning (args)
 
     # TODO provider-specific arguments should be prepended with the provider's code
     #  (e.g. aws_profile, azure_user_account)

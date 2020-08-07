@@ -6,11 +6,6 @@ import requests
 class OSCFacade(OSCBaseFacade):
     def __init__(self, credentials=None):
         super(OSCFacade, self).__init__()
-        import logging
-        logging.getLogger('scout').critical("OSC ::: OSCFacade::__init__()")
-        logging.getLogger('scout').critical(f"credentials {credentials}")
-        logging.getLogger('scout').critical(f"session {credentials.session}")
-        # self.session = credentials.session
         self.session = credentials
         self._instantiate_facades()
 
