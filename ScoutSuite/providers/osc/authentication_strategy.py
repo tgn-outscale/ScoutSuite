@@ -13,22 +13,27 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from datetime import datetime
-import hashlib
-import hmac
-from urllib.parse import quote as urlquote
-import requests
-import json
-# from ScoutSuite.providers.osc.utils import urlquote
 from ScoutSuite.providers.base.authentication_strategy import AuthenticationStrategy, AuthenticationException
 from osc_sdk_python import Gateway
 
 
 class OutscaleAuthenticationStrategy(AuthenticationStrategy):
-    def authenticate(self, profile=None, osc_access_key=None,
-                     osc_secret_access_key=None, **kwargs):
-        try:
-            session = Gateway()
-            return session
-        except Exception as e:
-            raise AuthenticationException(e)
+    def authenticate(self, profile=None, access=None, **kwargs):
+        if profile:
+            try:
+                session = Gateway(**{"profile": profile})
+                session.ReadVms()
+            except Exception as e:
+                raise AuthenticationException(e)
+        elif access:
+            session = Gateway({"custom": {
+                "access_key": access[0],
+                "secret_key": access[1],
+                "region": "eu-west-2"
+            }})
+        else:
+            try:
+                session = Gateway()
+            except Exception as e:
+                raise AuthenticationException(e)
+        return session

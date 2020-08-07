@@ -385,6 +385,13 @@ class ScoutSuiteArgumentParser:
                                     default=None,
                                     help='Run with a named profile')
 
+        osc_parser.add_argument('--access',
+                                dest='access',
+                                nargs='+',
+                                default=None,
+                                help='Run with access keys')
+
+
     def parse_args(self, args=None):
         args = self.parser.parse_args(args)
 

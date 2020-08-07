@@ -18,7 +18,7 @@ from ScoutSuite.output.html import ScoutReport
 from ScoutSuite.output.utils import get_filename
 from ScoutSuite.providers import get_provider
 from ScoutSuite.providers.base.authentication_strategy_factory import get_authentication_strategy
-
+import logging
 
 def run_from_cli():
     parser = ScoutSuiteArgumentParser()
@@ -26,6 +26,7 @@ def run_from_cli():
 
     # Get the dictionary to get None instead of a crash
     args = args.__dict__
+    logging.warning (args)
 
     # TODO provider-specific arguments should be prepended with the provider's code
     #  (e.g. aws_profile, azure_user_account)
@@ -54,8 +55,7 @@ def run_from_cli():
                    # Aliyun
                    access_key_id=args.get('access_key_id'), access_key_secret=args.get('access_key_secret'),
                    # Outscale
-                   osc_access_key=args.get('osc_access_key'),
-                   osc_secret_access_key=args.get('osc_secret_access_key'),
+                   access=args.get('access'),
                    # General
                    report_name=args.get('report_name'), report_dir=args.get('report_dir'),
                    timestamp=args.get('timestamp'),
@@ -103,7 +103,7 @@ def run(provider,
         # Aliyun
         access_key_id=None, access_key_secret=None,
         # Outscale
-        osc_access_key=None, osc_secret_access_key=None,
+        access=None,
         # General
         report_name=None, report_dir=None,
         timestamp=False,
@@ -157,8 +157,7 @@ async def _run(provider,
                # Aliyun
                access_key_id, access_key_secret,
                # Outscale
-               osc_access_key,
-               osc_secret_access_key,
+               access,
                # General
                report_name, report_dir,
                timestamp,
@@ -205,10 +204,9 @@ async def _run(provider,
                                                  client_secret=client_secret,
                                                  username=username,
                                                  password=password,
+                                                 access=access,
                                                  access_key_id=access_key_id,
-                                                 access_key_secret=access_key_secret,
-                                                 osc_access_key=osc_access_key,
-                                                 osc_secret_access_key=osc_secret_access_key)
+                                                 access_key_secret=access_key_secret)
 
         if not credentials:
             return 101
