@@ -25,6 +25,7 @@ class SecurityGroups(OSCResources):
         security_group['id'] = raw_security_group['SecurityGroupId']
         security_group['description'] = raw_security_group['Description']
         security_group['owner_id'] = raw_security_group['AccountId']
+        security_group['users'] = raw_security_group['InboundRules'][0]['SecurityGroupsMembers'] if len(raw_security_group['InboundRules']) > 0 else None
 
         if 'Tags' in raw_security_group:
             pass # TODO
@@ -64,6 +65,19 @@ class SecurityGroups(OSCResources):
                 else:
                     port_value = '%s-%s' % (rule['FromPort'], rule['ToPort'])
             manage_dictionary(protocols[ip_protocol]['ports'], port_value, {})
+
+
+            security_groups_members = rule['SecurityGroupsMembers']
+            account_id = "EMPTY"
+            if "AccountId" in security_groups_members:
+                account_id = security_groups_members["AccountId"]
+            protocols = manage_dictionary(protocols, account_id, {})
+            protocols[account_id] = manage_dictionary(protocols[account_id], 'users', {})
+            owner_id = "NO USERS"
+            for member in security_groups_members:
+                if "AccountId" in member:
+                    owner_id = member["AccountId"]
+            manage_dictionary(protocols[account_id]['users'], owner_id, {})
 
             # Save grants, values are either a CIDR or an EC2 security group
             # TODO If Ouscale has something equivalent

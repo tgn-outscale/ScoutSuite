@@ -5,8 +5,8 @@ from ScoutSuite.providers.osc.resources.fcu.volumes import Volumes
 
 class FCU(Regions):
     _children = [
-        (SecurityGroups, 'security_groups')
-        # (Volumes, 'volumes')
+        (SecurityGroups, 'security_groups'),
+        #(Volumes, 'volumes')
     ]
 
     def __init__(self, facade):
@@ -17,6 +17,4 @@ class FCU(Regions):
         for region in self['regions']:
             self['regions'][region]['security_groups_count'] =\
                 sum([len(sg) for sg in self['regions'][region]['security_groups'].values()])
-            self['regions'][region]['volumes_count'] =\
-                sum([len(volumes['volumes']) for volumes in self['regions'][region]['volumes'].values()])
         self['security_groups_count'] = sum([region['security_groups_count'] for region in self['regions'].values()])

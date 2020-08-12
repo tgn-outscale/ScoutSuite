@@ -6,6 +6,12 @@
                 "enabled": true,
                 "level": "danger"
             }
+        ],
+        "fcu-security-groups-with-no-users.json": [
+            {
+                "enabled": true,
+                "level": "warning"
+            }
         ]
     }
 }
