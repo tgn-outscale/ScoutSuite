@@ -12,7 +12,7 @@ class SecurityGroups(OSCResources):
 
     async def fetch_all(self):
         try:
-            raw_security_groups = await self.facade.fcu.get_security_groups(self.region)
+            raw_security_groups = await self.facade.api.get_security_groups(self.region)
             for raw_security_group in raw_security_groups:
                 name, resource = self._parse_security_group(raw_security_group)
                 self[name] = resource
@@ -25,7 +25,6 @@ class SecurityGroups(OSCResources):
         security_group['id'] = raw_security_group['SecurityGroupId']
         security_group['description'] = raw_security_group['Description']
         security_group['owner_id'] = raw_security_group['AccountId']
-        security_group['users'] = raw_security_group['InboundRules'][0]['SecurityGroupsMembers'] if len(raw_security_group['InboundRules']) > 0 else None
 
         if 'Tags' in raw_security_group:
             pass # TODO
@@ -77,6 +76,8 @@ class SecurityGroups(OSCResources):
             for member in security_groups_members:
                 if "AccountId" in member:
                     owner_id = member["AccountId"]
+                rules_count = rules_count + 1
+
             manage_dictionary(protocols[account_id]['users'], owner_id, {})
 
             # Save grants, values are either a CIDR or an EC2 security group

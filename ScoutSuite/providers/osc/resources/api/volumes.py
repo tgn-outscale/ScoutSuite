@@ -13,19 +13,19 @@ class Volumes(OSCResources):
 
     async def fetch_all(self, regions=None, excluded_regions=None, partition_name='osc', **kwargs):
         try:
-            raw_volumes = await self.facade.fcu.get_volumes()
+            raw_volumes = await self.facade.api.get_volumes()
             for raw_volume in raw_volumes:
                 name, resource = self._parse_volumes(raw_volume)
                 self[name] = resource
         except Exception as e:
             logging.warning(e)
 
-    def _parse_volume(self, raw_volume):
+    def _parse_volumes(self, raw_volume):
         volume = {}
         volume['size'] = raw_volume['Size']
         volume['id'] = raw_volume['VolumeId']
         volume['type'] = raw_volume['VolumeType']
-        volume['snapshot_id'] = raw_volume['SnapshotId']
+        volume['snapshot_id'] = raw_volume["SnapshotId"] if "SnapshotId" in raw_volume else ""
         volume['state'] = raw_volume['State']
         volume["rules"] = []
         return volume['id'], volume
@@ -34,7 +34,7 @@ class Volumes(OSCResources):
         protocols = {}
         rules_count = 0
         for rule in rules:
-            # @TODO find ome rule to put here
+            # @TODO find one rule to put here
             rules_count += 1
 
         return protocols, rules_count
