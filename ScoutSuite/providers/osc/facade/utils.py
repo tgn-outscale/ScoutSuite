@@ -20,6 +20,15 @@ class OSCFacadeUtils:
                 volumes.append(volume)
         return volumes
 
+    @staticmethod
+    async def get_all_snapshots(session: Gateway):
+        response = session.ReadSnapshots()
+        snapshots = []
+        if 'Snapshots' in response:
+            for snapshot in response['Snapshots']:
+                snapshots.append(snapshot)
+        return snapshots
+
 
     @staticmethod
     def _get_outscale_endpoint(region, version, action):

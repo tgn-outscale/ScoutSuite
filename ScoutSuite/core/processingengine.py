@@ -23,6 +23,7 @@ class ProcessingEngine(object):
                 except Exception as e:
                     print_exception('Failed to create rule %s: %s' % (rule.filename, e))
 
+
     def run(self, cloud_provider, skip_dashboard=False):
         # Clean up existing findings
         for service in cloud_provider.services:
@@ -50,6 +51,7 @@ class ProcessingEngine(object):
                     setattr(rule, 'checked_items', 0)
                     cloud_provider.services[service][self.ruleset.rule_type][rule.key]['items'] = recurse(
                         cloud_provider.services, cloud_provider.services, path, [], rule, True)
+                    print(cloud_provider.services[service][self.ruleset.rule_type][rule.key]['items'])
                     if skip_dashboard:
                         continue
                     cloud_provider.services[service][self.ruleset.rule_type][rule.key]['dashboard_name'] = \

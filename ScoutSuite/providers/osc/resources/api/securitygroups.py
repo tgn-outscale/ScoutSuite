@@ -77,7 +77,6 @@ class SecurityGroups(OSCResources):
                 if "AccountId" in member:
                     owner_id = member["AccountId"]
                 rules_count = rules_count + 1
-
             manage_dictionary(protocols[account_id]['users'], owner_id, {})
 
             # Save grants, values are either a CIDR or an EC2 security group

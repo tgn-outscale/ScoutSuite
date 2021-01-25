@@ -25,3 +25,11 @@ class APIFacade(OSCBaseFacade):
         except Exception as e:
             print_exception('Failed to describe API volumes: {}'.format(e))
             return []
+
+    async def get_snapshots(self, region: str):
+        try:
+            snapshots = await OSCFacadeUtils.get_all_snapshots(self.session)
+            return snapshots
+        except Exception as e:
+            print_exception('Failed to describe API snapshots: {}'.format(e))
+            return []

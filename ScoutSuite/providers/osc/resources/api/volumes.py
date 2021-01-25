@@ -17,6 +17,7 @@ class Volumes(OSCResources):
             for raw_volume in raw_volumes:
                 name, resource = self._parse_volumes(raw_volume)
                 self[name] = resource
+                #print(resource)
         except Exception as e:
             logging.warning(e)
 
@@ -25,16 +26,30 @@ class Volumes(OSCResources):
         volume['size'] = raw_volume['Size']
         volume['id'] = raw_volume['VolumeId']
         volume['type'] = raw_volume['VolumeType']
-        volume['snapshot_id'] = raw_volume["SnapshotId"] if "SnapshotId" in raw_volume else ""
+        volume['volume_id'] = raw_volume["SnapshotId"] if "SnapshotId" in raw_volume else ""
         volume['state'] = raw_volume['State']
-        volume["rules"] = []
+        volume["rules"] = {'ingress': {}, 'egress': {}}
+        
+        ingress_volumes, ingress_rules_count = self._parse_volume_rules(
+            volume)
+        volume['rules']['ingress']['volumes'] = ingress_volumes
+        volume['rules']['ingress']['count'] = ingress_rules_count
+        egress_volumes, egress_rules_count = self._parse_volume_rules(
+            volume)
+        volume['rules']['egress']['volumes'] = egress_volumes
+        volume['rules']['egress']['count'] = egress_rules_count
         return volume['id'], volume
 
     def _parse_volume_rules(self, rules):
-        protocols = {}
+        volumes = {}
         rules_count = 0
         for rule in rules:
-            # @TODO find one rule to put here
+            volume_id = rule["SnapshotId"] if "SnapshotId" in rule else None
+            if volume_id is None:
+                volume_id = "EMPTY"
+            volumes = manage_dictionary(volumes, volume_id, {})
+            volumes[volume_id] = manage_dictionary(
+                volumes[volume_id], 'volumes', {})
             rules_count += 1
 
-        return protocols, rules_count
+        return volumes, rules_count

@@ -1,11 +1,13 @@
 from ScoutSuite.providers.osc.resources.api.securitygroups import SecurityGroups
 from ScoutSuite.providers.osc.resources.regions import Regions
+from ScoutSuite.providers.osc.resources.api.snapshots import Snapshots
 from ScoutSuite.providers.osc.resources.api.volumes import Volumes
 
 
 class API(Regions):
     _children = [
         (SecurityGroups, 'security_groups'),
+        (Snapshots, 'snapshots'),
         #(Volumes, 'volumes')
     ]
 

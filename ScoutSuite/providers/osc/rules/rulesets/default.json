@@ -12,6 +12,12 @@
                 "enabled": true,
                 "level": "warning"
             }
+        ],
+        "api-volumes-link-to-snapshots.json": [
+            {
+                "enabled": true,
+                "level": "warning"
+            }
         ]
     }
 }
